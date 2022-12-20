@@ -6,28 +6,37 @@ import random
 import string
 import threading
 
-def generate_files():
+def generate_files(insert_word):
     letters = string.ascii_lowercase
-    word = ''
     i = 0
+    to_insert = random.randint(1, 10)
 
     for j in range(1, 11):
-        with open(f'text{j}.txt', 'w') as f:
-            while i < 5000:
-                # if u change val in sample() (int one), u change len of random word
-                word = ''.join(random.sample(letters, 3))
+        with open(f'text{j}.txt', 'w+') as f:
+            while i < random.randint(1000, 2500):
+                word = ''.join(random.sample(letters, len(insert_word)))
                 f.writelines([word, '\n'])
                 i += 1
+        
+        # чтобы слово точно было хотя бы в одном из файлов (чем длинее слово, тем меньше шанс его случайно сгенерировать)        
+        if j == to_insert:
+            with open(f'text{to_insert}.txt', 'r+') as f2:
+                text = f2.readlines()
+                text.insert(random.randint(0, len(text)), insert_word+'\n')
+                f2.writelines(text)
         i = 0
 
-# создает 10 файлов со случайным текстом
-generate_files()
+# какое слово найти
+to_find = input('Word to find: ').lower()
+# создает 10 файлов со случайными "словами" длиной заданого слова
+generate_files(to_find)
 # для проверки найдено соответствие или нет
 found = 0
 
 def search1():
     # для проверки
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -39,14 +48,15 @@ def search1():
     if found:
         return
         
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
 
 def search2():
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -58,14 +68,15 @@ def search2():
     if found:
         return
 
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
 
 def search3():
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -77,14 +88,15 @@ def search3():
     if found:
         return
 
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
 
 def search4():
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -96,14 +108,15 @@ def search4():
     if found:
         return
         
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
 
 def search5():
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -115,14 +128,15 @@ def search5():
     if found:
         return
         
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
 
 def search6():
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -134,14 +148,15 @@ def search6():
     if found:
         return
         
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
 
 def search7():
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -153,14 +168,15 @@ def search7():
     if found:
         return
         
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
 
 def search8():
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -172,14 +188,15 @@ def search8():
     if found:
         return
         
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
 
 def search9():
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -191,14 +208,15 @@ def search9():
     if found:
         return
         
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
 
 def search10():
     # print('Thread start')
+    global to_find
     global found
     if found:
         return
@@ -210,8 +228,8 @@ def search10():
     if found:
         return
         
-    if 'cat' in text:
-        found = text.index('cat')
+    if to_find in text:
+        found = text.index(to_find)
         print(f'Found in {f.name} at {found + 1} line. All threads stoped.')
         return
     # print('Thread ended')
